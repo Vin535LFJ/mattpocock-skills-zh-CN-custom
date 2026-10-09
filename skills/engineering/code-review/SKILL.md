@@ -10,7 +10,7 @@ description: "从固定点（commit、branch、tag 或 merge-base）开始，按
 
 两个轴线都作为**并行 sub-agents**运行，避免互相污染 context；然后这个 skill 聚合它们的 findings。
 
-Issue tracker 应该已经提供给你；如果缺少 `docs/agents/issue-tracker.md`，请让用户运行 `/setup-matt-pocock-skills`。
+Issue tracker 应该已经提供给你；如果没有，请让用户运行 `/setup-matt-pocock-skills`。
 
 ## 流程
 
@@ -26,14 +26,14 @@ Issue tracker 应该已经提供给你；如果缺少 `docs/agents/issue-tracker
 
 按以下顺序寻找来源 spec：
 
-1. Commit messages 中的 issue references（`#123`、`Closes #45`、GitLab `!67` 等），按 `docs/agents/issue-tracker.md` 中的 workflow 获取。
+1. Commit messages 中的 issue references（`#123`、`Closes #45`、GitLab `!67` 等），按 tracker doc 中的 workflow 获取。
 2. 用户作为 argument 传入的 path。
 3. `docs/`、`specs/` 或 `.scratch/` 下与 branch name 或 feature 匹配的 spec 文件。
 4. 如果什么都找不到，询问用户 spec 在哪里。如果用户说没有 spec，**Spec** sub-agent 跳过并报告 “no spec available”。
 
 ### 3. 找到 standards 来源
 
-Repo 中任何记录代码应该如何写的内容，例如 `CODING_STANDARDS.md` 或 `CONTRIBUTING.md`。
+搜索 repo 中**每一个**记录「代码应该如何写」的文件。当 `CODING_STANDARDS.md` 或 `CONTRIBUTING.md` 存在时，它们必须在列表上。
 
 在 repo 自己记录的 standards 之外，Standards 轴线始终带有下面的 **smell baseline**：一组固定的 Fowler code smells（_Refactoring_ 第 3 章），即使 repo 没有任何约定也适用。有两条规则：
 
@@ -56,6 +56,8 @@ Repo 中任何记录代码应该如何写的内容，例如 `CODING_STANDARDS.md
 - **Refused Bequest**：subclass 或 implementer 忽略或 override 了继承来的大部分内容。-> 去掉 inheritance，使用 composition。
 
 ### 4. 并行启动两个 sub-agents
+
+把两个 sub-agent 调用**一起发出、在前台执行**，然后聚合它们返回的报告。
 
 **Standards sub-agent prompt** 包含：
 
@@ -85,3 +87,5 @@ Repo 中任何记录代码应该如何写的内容，例如 `CODING_STANDARDS.md
 - 代码完全符合 issue 要求，但破坏了项目约定 -> **Spec pass, Standards fail.**
 
 分开报告能避免一个轴线掩盖另一个轴线。
+
+<!-- 本地回填：同步上游 mattpocock/skills 的 code-review 修复（standards 来源改为「搜索全部 standards 文件」+ 子代理改为前台并行发出 + tracker doc 措辞泛化）。详见 BACKPORTS.md -->

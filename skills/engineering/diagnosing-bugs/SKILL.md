@@ -122,7 +122,7 @@ Correct seam 是 test 能以 call site 中真实发生的方式触发 **real bug
 如果存在 correct seam：
 
 1. 把 minimised repro 变成该 seam 上的 failing test。
-2. 看它 fail。
+2. 看它 fail。如果你是通过改动代码或 fixture 强行造出的红，先 `diff` 一份未改动的副本，证明这个改动确实生效了，再相信它。
 3. 应用 fix。
 4. 看它 pass。
 5. 重新针对原始（未 minimised）场景运行 Phase 1 feedback loop。
@@ -136,3 +136,5 @@ Correct seam 是 test 能以 call site 中真实发生的方式触发 **real bug
 - [ ] 所有 `[DEBUG-...]` instrumentation 已移除（grep prefix）
 - [ ] Throwaway prototypes 已删除（或移动到明确标记的 debug location）
 - [ ] 正确 hypothesis 已写进 commit / PR message，让下一个 debugger 能学习
+
+<!-- 本地回填：同步上游 mattpocock/skills 的 diagnosing-bugs 修复（强制造红时必须 diff 未改动副本以证明变异生效）。详见 BACKPORTS.md -->
