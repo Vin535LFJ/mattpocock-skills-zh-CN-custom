@@ -29,11 +29,15 @@
 |---|---|---|
 | `upstream-zh` | `https://github.com/vinvcn/mattpocock-skills-zh-CN.git` | 可追溯的中文版上游（比较中文版变化、拉取翻译刷新） |
 | `upstream-en` | `https://github.com/mattpocock/skills.git` | 英文上游（重新推导回填差异） |
-| `origin` | **待配置**（本仓库自己的远程仓库） | 发布与日常推送 |
+| `origin` | `https://github.com/Vin535LFJ/mattpocock-skills-zh-CN-custom.git` | 本仓库自己的**私有**远程仓库，用于发布与日常推送 |
 
-> ⚠️ **`origin` 地址尚未确定。** 本任务未猜测远程地址；待具备明确授权的命名空间后，再创建私有仓库并 `git remote add origin <url>`。具体所需信息见仓库根目录的交付报告。
+> `origin` 已创建为 **GitHub 私有仓库**（账号 `Vin535LFJ`，具备 `repo` 权限），默认分支为 `main`。本机未配置 GitHub SSH key，推送走 HTTPS + 凭据助手（`git-credential-manager`）。
 >
-> 若 `origin` 已配置，请在此处补记实际地址与可见性（私有/公开）。
+> 推送示例（凭据助手在非交互场景可能阻塞，可在命令行临时内联 token，勿写入 `.git/config`）：
+>
+> ```bash
+> git push origin main
+> ```
 
 ## 同步方式
 

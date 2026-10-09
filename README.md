@@ -48,8 +48,8 @@
 ### 方式一：skills.sh installer（推荐，支持多种 agent）
 
 ```bash
-# 从本仓库安装（远程地址以实际发布地址为准）
-npx skills@latest add <owner>/<repo> -s setup-matt-pocock-skills grill-with-docs domain-modeling \
+# 从本仓库安装（私有仓库需先具备访问权限）
+npx skills@latest add Vin535LFJ/mattpocock-skills-zh-CN-custom -s setup-matt-pocock-skills grill-with-docs domain-modeling \
   to-spec to-tickets implement tdd diagnosing-bugs code-review retro handoff \
   codebase-design writing-for-agents grilling \
   -a claude-code codex zcode github-copilot -y --copy
@@ -69,7 +69,7 @@ npx skills@latest add . -a codex -y --copy
 ### 方式二：作为 Claude Code plugin
 
 ```
-/plugin marketplace add <owner>/<repo>
+/plugin marketplace add Vin535LFJ/mattpocock-skills-zh-CN-custom
 /plugin install mattpocock-skills@mattpocock
 ```
 
