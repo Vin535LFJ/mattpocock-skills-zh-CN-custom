@@ -9,7 +9,7 @@
     {
       "name": "mattpocock-skills",
       "source": "./",
-      "description": "Matt Pocock 面向真实工程工作的 agent skills（简体中文本地化）：精选 14 个技能，覆盖持续追问、spec/ticket flows、TDD、代码审查、领域建模等，并包含 4 处经验证的最小回填。",
+      "description": "Matt Pocock 面向真实工程工作的 agent skills 简体中文全量发行版（37 个技能）：持续追问、spec/ticket flows、TDD、代码审查、领域建模等，并额外包含 4 处已对照英文上游验证的修复。",
       "category": "engineering",
       "keywords": [
         "engineering",

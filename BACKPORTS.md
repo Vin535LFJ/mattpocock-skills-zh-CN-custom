@@ -194,11 +194,11 @@
 
 ## 上游尚未同步、但**未回填**的项（供后续评估）
 
-以下为中文版落后于上游的其余改动，本仓库**未回填**（评估后认为对精选集合影响小，或属于未纳入的技能）：
+以下为中文版落后于上游的其余改动，本仓库**未回填**（评估后认为影响小，或尚未验证）：
 
-- `setup-matt-pocock-skills`：`triage-labels` / `issue-tracker-github` 措辞（本集合不含 `triage`）
+- `setup-matt-pocock-skills`：`triage-labels` / `issue-tracker-github` 措辞（技能已在库，仅措辞未回填）
 - `tdd`：为每个提议的 seam 补一行「能抓到什么 / 漏掉什么」（`3f599139104dfceabc7754eeb91319802f85e042`）
 - `to-tickets`：sub-issue / 原生 blocking 关系（`9e2abf8611a345efbf779aacb171cff015bcdeb6`、`cffab50350e3d96688f63f890f4d7ca0e6007cfe`）
 - `handoff`：临时目录解析顺序（`4f4e9433bbb7c4957ef33b1ea26686fb7c2a4cf4`、`0f5e033ebc47b142f5ffa56a582ede6d9d9bada3`）
-- `ask-matt` / `wayfinder` / `wizard` / `teach` 等**未纳入本集合**技能的改动
-- 上游新增的 `in-progress/chief-of-staff`（**未纳入，不安装**）
+- `ask-matt` / `wayfinder` / `wizard` / `teach` 等技能的改动（技能已在库，改动未回填）
+- 上游新增的 `in-progress/chief-of-staff`（英文上游有、中文版尚未同步）

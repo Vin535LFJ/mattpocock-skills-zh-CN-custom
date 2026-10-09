@@ -29,48 +29,36 @@ git log --oneline bf98e53..upstream-zh/main
 # 英文上游相对中文版同步基线的变化（找出待回填项）
 git log --oneline 24fe0ef..upstream-en/main
 
-# 只看本集合 14 个技能的相关改动
+# 只看 4 处回填涉及技能的上游改动（其余技能的上游变化可整体跟进）
 git log --oneline 24fe0ef..upstream-en/main -- \
-  skills/engineering/code-review skills/engineering/codebase-design \
-  skills/engineering/diagnosing-bugs skills/engineering/domain-modeling \
-  skills/engineering/grill-with-docs skills/engineering/implement \
-  skills/engineering/retro skills/engineering/setup-matt-pocock-skills \
-  skills/engineering/tdd skills/engineering/to-spec skills/engineering/to-tickets \
-  skills/productivity/grilling skills/productivity/handoff skills/productivity/writing-for-agents
+  skills/engineering/implement skills/engineering/code-review \
+  skills/engineering/diagnosing-bugs skills/productivity/grilling
 ```
 
-### 2. 刷新内容（按需，保持精选集合）
+### 2. 刷新内容（保持全量技能集）
 
 1. 先读 [`.skills/translate-skill/SKILL.md`](./.skills/translate-skill/SKILL.md)。
 2. 只翻译自然语言说明；保留目录名、skill name、frontmatter key、命令、代码块、路径、URL 与 tool/API identifiers。
 3. 术语以 [TRANSLATION-GLOSSARY.md](./TRANSLATION-GLOSSARY.md) 为准。
-4. 若上游新增/删除了本集合中技能的文件（如 `agents/openai.yaml`、参考文档、脚本），同步更新，保持相对路径不变。
-
-### 3. 精选裁剪（必须在应用回填之前）
-
-**先裁剪、后回填。** 刷新会把上游的全部技能带进来，必须先裁回精选集合，再应用回填：
-
-1. **只保留 14 个技能**：移除未纳入的上游技能（`ask-matt`、`triage`、`improve-codebase-architecture`、`implement-spec`、`wayfinder`、`pr`、`prototype`、`research`、`wizard`、`grill-me`、`teach`、`to-questionnaire`、`wait-what`）以及 `misc/`、`in-progress/`、`deprecated/` 三个 bucket。
-2. **移除本集合外的分发物**（如 `dsh-plugin/`），以及不属于 14 个技能的文档（`docs/` 只保留 14 个技能的文档 + `docs/invocation.md` + `docs/adr/`）。
-3. **裁剪后必须三处一致**：`README.md`、各 bucket `README.md`、`.claude-plugin/plugin.json` 的技能清单都要与磁盘上的 14 个技能一致。
-4. 断言裁剪完成后再进入下一步：
+4. 若上游新增/删除了技能或附属文件（如 `agents/openai.yaml`、参考文档、脚本），同步更新，保持相对路径不变。
+5. **保持全量**：本仓库**不裁剪**技能集，应与中文版上游一致（engineering 20 + productivity 7 + misc 4 + in-progress 6 = **37**）。
 
 ```bash
-find skills -name SKILL.md | wc -l   # 期望 14
+find skills -name SKILL.md | wc -l   # 期望 37
 ```
 
-### 4. 重新应用四处回填
+### 3. 重新应用四处回填（刷新后必做）
 
-**裁剪完成后**再对照 [BACKPORTS.md](./BACKPORTS.md) 逐项重新应用 4 处回填，并用其中的「验证方法」逐条核对。
+刷新会覆盖本仓库相对上游的 4 处回填，因此**每次刷新后**都要对照 [BACKPORTS.md](./BACKPORTS.md) 逐项重新应用，并用其中的「验证方法」逐条核对。
 
 ```bash
 grep -rl "本地回填" skills/    # 期望恰好 4 个 SKILL.md
 ```
 
-### 5. 验证（每次改动后）
+### 4. 验证（每次改动后）
 
 ```bash
-# a. 技能数：应为 14
+# a. 技能数：应为 37
 find skills -name SKILL.md | wc -l
 
 # b. 回填数：应为 4
@@ -79,7 +67,7 @@ grep -rl "本地回填" skills/ | wc -l
 # c. 发布索引与技能数一致
 node -e "const p=require('./.claude-plugin/plugin.json'); console.log('plugin.json skills:', p.skills.length)"
 
-# d. installer 识别到的技能：应为 14（隔离目录内执行，勿污染其它仓库）
+# d. installer 识别到的技能：应为 37（隔离目录内执行，勿污染其它仓库）
 npx skills@latest add . --list
 
 # e. 翻译/结构检查（仓库自带脚本）
@@ -90,7 +78,7 @@ node scripts/audit-english.mjs
 claude plugin validate . --strict
 ```
 
-### 6. 提交与发布
+### 5. 提交与发布
 
 ```bash
 # 一次同步一个主题，提交信息写清上游基线 SHA 与本次改动
@@ -112,4 +100,5 @@ git push origin main
 
 ## 本仓库记录
 
-- 2026-10-09：建立本仓库。以 `vinvcn/mattpocock-skills-zh-CN@bf98e53` 为基线，精选 14 个技能（engineering 11 + productivity 3），保留 4 处经验证回填，移除其余上游技能与 `dsh-plugin`，新增 `UPSTREAM.md` / `BACKPORTS.md`，重写 `README.md` / `SYNC.md` / bucket README / `AGENTS.md` / `CLAUDE.md` / `plugin.json`。
+- 2026-10-09（收口）：确立本仓库为**中文版全量发行副本**（engineering 20 + productivity 7 + misc 4 + in-progress 6 = **37 个技能**）+ **4 处**已对照英文上游验证的回填；基线 `vinvcn/mattpocock-skills-zh-CN@bf98e53`。
+- 2026-10-09（建库 → 调整为全量）：曾以「精选 14 技能」形态建立（commit `d182674`），后按「**全量发行 + 少量修复**」的方向调整：恢复全部技能与 `docs/`，移除 `dsh-plugin/`（非本仓库范围），保留 4 处回填与 `UPSTREAM.md` / `BACKPORTS.md` / `AGENT-COMPATIBILITY.md`。
