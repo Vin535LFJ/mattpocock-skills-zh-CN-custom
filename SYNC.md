@@ -44,18 +44,30 @@ git log --oneline 24fe0ef..upstream-en/main -- \
 1. 先读 [`.skills/translate-skill/SKILL.md`](./.skills/translate-skill/SKILL.md)。
 2. 只翻译自然语言说明；保留目录名、skill name、frontmatter key、命令、代码块、路径、URL 与 tool/API identifiers。
 3. 术语以 [TRANSLATION-GLOSSARY.md](./TRANSLATION-GLOSSARY.md) 为准。
-4. **只保留 14 个技能**：不要重新引入上游的其余技能、`misc/`、`in-progress/`、`deprecated/`。
-5. 若上游新增/删除了本集合中技能的文件（如 `agents/openai.yaml`、参考文档、脚本），同步更新，保持相对路径不变。
+4. 若上游新增/删除了本集合中技能的文件（如 `agents/openai.yaml`、参考文档、脚本），同步更新，保持相对路径不变。
 
-### 3. 重新应用四处回填
+### 3. 精选裁剪（必须在应用回填之前）
 
-刷新后**必须**对照 [BACKPORTS.md](./BACKPORTS.md) 逐项重新应用 4 处回填，并用其中的「验证方法」逐条核对。
+**先裁剪、后回填。** 刷新会把上游的全部技能带进来，必须先裁回精选集合，再应用回填：
+
+1. **只保留 14 个技能**：移除未纳入的上游技能（`ask-matt`、`triage`、`improve-codebase-architecture`、`implement-spec`、`wayfinder`、`pr`、`prototype`、`research`、`wizard`、`grill-me`、`teach`、`to-questionnaire`、`wait-what`）以及 `misc/`、`in-progress/`、`deprecated/` 三个 bucket。
+2. **移除本集合外的分发物**（如 `dsh-plugin/`），以及不属于 14 个技能的文档（`docs/` 只保留 14 个技能的文档 + `docs/invocation.md` + `docs/adr/`）。
+3. **裁剪后必须三处一致**：`README.md`、各 bucket `README.md`、`.claude-plugin/plugin.json` 的技能清单都要与磁盘上的 14 个技能一致。
+4. 断言裁剪完成后再进入下一步：
+
+```bash
+find skills -name SKILL.md | wc -l   # 期望 14
+```
+
+### 4. 重新应用四处回填
+
+**裁剪完成后**再对照 [BACKPORTS.md](./BACKPORTS.md) 逐项重新应用 4 处回填，并用其中的「验证方法」逐条核对。
 
 ```bash
 grep -rl "本地回填" skills/    # 期望恰好 4 个 SKILL.md
 ```
 
-### 4. 验证（每次改动后）
+### 5. 验证（每次改动后）
 
 ```bash
 # a. 技能数：应为 14
@@ -78,7 +90,7 @@ node scripts/audit-english.mjs
 claude plugin validate . --strict
 ```
 
-### 5. 提交与发布
+### 6. 提交与发布
 
 ```bash
 # 一次同步一个主题，提交信息写清上游基线 SHA 与本次改动

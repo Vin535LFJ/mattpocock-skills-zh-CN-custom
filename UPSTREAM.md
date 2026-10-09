@@ -29,15 +29,23 @@
 |---|---|---|
 | `upstream-zh` | `https://github.com/vinvcn/mattpocock-skills-zh-CN.git` | 可追溯的中文版上游（比较中文版变化、拉取翻译刷新） |
 | `upstream-en` | `https://github.com/mattpocock/skills.git` | 英文上游（重新推导回填差异） |
-| `origin` | `https://github.com/Vin535LFJ/mattpocock-skills-zh-CN-custom.git` | 本仓库自己的**私有**远程仓库，用于发布与日常推送 |
+| `origin` | `https://github.com/Vin535LFJ/mattpocock-skills-zh-CN-custom.git` | 本仓库自己的**公开**远程仓库，用于发布与日常推送 |
 
-> `origin` 已创建为 **GitHub 私有仓库**（账号 `Vin535LFJ`，具备 `repo` 权限），默认分支为 `main`。本机未配置 GitHub SSH key，推送走 HTTPS + 凭据助手（`git-credential-manager`）。
+> `origin` 已创建为 **GitHub 公开仓库**（账号 `Vin535LFJ`），默认分支为 `main`，当前可见性为 `public`。
 >
-> 推送示例（凭据助手在非交互场景可能阻塞，可在命令行临时内联 token，勿写入 `.git/config`）：
+> **推送认证（推荐做法）**：优先使用 SSH 或凭据助手，**不要**在命令行内联 token。
+>
+> - 首选：配置 GitHub SSH key，并使用 `git@github.com:Vin535LFJ/mattpocock-skills-zh-CN-custom.git`；
+> - 或使用 `gh auth login`，由 `gh` 托管凭据；
+> - 或让 `git-credential-manager` 在首次推送时交互式保存 HTTPS 凭据。
+>
+> ⚠️ **不要**用 `-c http.extraHeader="Authorization: ..."` 或把 token 拼进 remote URL 的方式推送：token 会进入 shell 历史、进程列表或 `.git/config`，可能泄露。本仓库的 `.git/config` 与全部跟踪文件均不含任何凭据。
 >
 > ```bash
 > git push origin main
 > ```
+>
+> 注：更早的提交 `186e725`（信息为「docs: 记录 origin **私有**远程仓库地址与安装命令」）在**提交信息**中沿用了创建时的「私有」措辞；仓库此后已改为 **public**。**以本节为准**，提交信息的历史措辞不再代表当前可见性。
 
 ## 同步方式
 
@@ -57,7 +65,7 @@
 - 简体中文本地化：`vinvcn/mattpocock-skills-zh-CN`。
 - 本仓库为上述两者的**衍生精选定制集合**，保留原始许可证与署名。
 
-**分发方式**：MIT 允许再分发与修改，但要求保留版权声明与许可证文本。因此本仓库在**保留 `LICENSE` / `LICENSE.zh-CN.md` 与署名**的前提下可公开；若发布为私有仓库，同样建议保留这两份文件。发布前请再确认目标平台的许可与合规要求。
+**分发方式**：MIT 允许再分发与修改，但要求保留版权声明与许可证文本。本仓库现为**公开仓库**（`Vin535LFJ/mattpocock-skills-zh-CN-custom`），已保留 `LICENSE` / `LICENSE.zh-CN.md` 与署名，符合 MIT 的分发要求。发布前请再确认目标平台的许可与合规要求。
 
 ## 上游与 Mgtv-Pet-SDK 的关系
 

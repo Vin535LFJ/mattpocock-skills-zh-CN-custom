@@ -41,3 +41,4 @@ grep -rl "本地回填" skills/
 - 同步记录写在 [SYNC.md](./SYNC.md)。
 - 回填记录写在 [BACKPORTS.md](./BACKPORTS.md)。
 - 上游仓库、基线提交与同步方式见 [UPSTREAM.md](./UPSTREAM.md)。
+- 跨 Agent 调用兼容方案见 [AGENT-COMPATIBILITY.md](./AGENT-COMPATIBILITY.md)。

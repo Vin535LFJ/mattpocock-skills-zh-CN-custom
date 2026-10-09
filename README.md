@@ -48,7 +48,7 @@
 ### 方式一：skills.sh installer（推荐，支持多种 agent）
 
 ```bash
-# 从本仓库安装（私有仓库需先具备访问权限）
+# 从本仓库安装（公开仓库，无需额外权限）
 npx skills@latest add Vin535LFJ/mattpocock-skills-zh-CN-custom -s setup-matt-pocock-skills grill-with-docs domain-modeling \
   to-spec to-tickets implement tdd diagnosing-bugs code-review retro handoff \
   codebase-design writing-for-agents grilling \
@@ -60,9 +60,13 @@ npx skills@latest add . -a codex -y --copy
 ```
 
 - `-s` / `-a` **不接受逗号分隔**，必须用空格分隔（逗号会被当成一个名字 ⇒ `No matching skills found`）。
-- `--copy` 避免 Windows 符号链接问题。
-- `codex` 与 `github-copilot` 共用 `.agents/skills/`；`zcode` 用 `.zcode/skills/`。
+- 安装须**显式**指定 `-a <agent>` + `--copy`（避免 Windows 符号链接问题）+ `-y`（跳过确认）。
+- **Node 要求**：`skills@1.7.1` 的 `engines.node` = `>=22.20.0`（实测运行于 v22.22.2）。
+- 先 `npx skills@latest add Vin535LFJ/mattpocock-skills-zh-CN-custom --list` **断言恰为 14**，再安装。
+- `codex` / `github-copilot` / `opencode` / `cursor` 共用 `.agents/skills/`；`claude-code` 用 `.claude/skills/`；`zcode` 用 `.zcode/skills/`。
 - WorkBuddy 不在 installer 支持的 agent 列表中；其项目级技能目录是 `{workspace}/.workbuddy-ai/skills/`，需手动投放。
+
+> ⚠️ **技能包与文档的发布状态可能不同步**：安装请以**已发布提交中的技能文件**为准（技能包通常先于文档更新）。
 
 首次安装后，在每个 repo 中运行一次 `setup-matt-pocock-skills` 来完成 issue tracker、labels 和 docs 目录配置。
 
@@ -113,6 +117,7 @@ node -e "const p=require('./.claude-plugin/plugin.json'); console.log(p.skills.l
 | [UPSTREAM.md](./UPSTREAM.md) | 上游仓库、基线提交、远程配置与同步方式 |
 | [BACKPORTS.md](./BACKPORTS.md) | 四处回填的原因、文件路径与重新应用方法 |
 | [SYNC.md](./SYNC.md) | 更新、比较差异、验证与发布的操作流程 |
+| [AGENT-COMPATIBILITY.md](./AGENT-COMPATIBILITY.md) | 跨 Agent 调用兼容方案：依赖图、能力矩阵、回退机制 |
 | [AGENTS.md](./AGENTS.md) / [CLAUDE.md](./CLAUDE.md) | 仓库结构与约定 |
 | [CONTRIBUTING.md](./CONTRIBUTING.md) | 翻译请求与贡献流程 |
 | [TRANSLATION-GLOSSARY.md](./TRANSLATION-GLOSSARY.md) | 翻译术语表 |

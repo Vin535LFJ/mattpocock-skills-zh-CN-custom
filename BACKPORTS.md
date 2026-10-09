@@ -11,20 +11,36 @@
 | 项 | 值 |
 |---|---|
 | 英文上游 | `mattpocock/skills` |
-| 中文版上游同步基线 | `mattpocock/skills@24fe0ef`（v1.3.1，2026-10-08） |
-| 回填依据的上游提交区间 | `24fe0ef..b0618bc`（v1.3.1 → 上游当前 HEAD） |
-| 回填时上游 HEAD | `mattpocock/skills@b0618bc` |
-| 中文版上游 HEAD | `vinvcn/mattpocock-skills-zh-CN@bf98e53` |
-| 本仓库基线 | `bf98e53`（沿用中文版上游 Git 历史） |
+| 中文版上游同步基线 | `mattpocock/skills@24fe0ef7737efae15c87225755e9f6f5965e4888`（v1.3.1，2026-10-08） |
+| 回填依据的上游提交区间 | `24fe0ef7737efae15c87225755e9f6f5965e4888..b0618bc436ad893b3c5e84e55fba86586d34a404`（v1.3.1 → 上游当前 HEAD） |
+| 回填时上游 HEAD | `mattpocock/skills@b0618bc436ad893b3c5e84e55fba86586d34a404` |
+| 中文版上游 HEAD | `vinvcn/mattpocock-skills-zh-CN@bf98e53f92089fec9b4885f128a565d7eac0337f` |
+| 本仓库基线 | `bf98e53f92089fec9b4885f128a565d7eac0337f`（沿用中文版上游 Git 历史） |
 
 ## 总览
 
-| # | 技能 | 文件 | 上游提交 | 改动要点 |
+| # | 技能 | 文件 | 上游提交（短） | 改动要点 |
 |---|---|---|---|---|
 | 1 | `implement` | `skills/engineering/implement/SKILL.md` | `e48341a` + `04320ee` + `6d6a5b9` | 斜杠命令 → Skill 工具调用；ticket 标题前置 |
 | 2 | `code-review` | `skills/engineering/code-review/SKILL.md` | `3da8c01` | standards 来源扩大；子代理前台并行；tracker doc 措辞泛化 |
 | 3 | `diagnosing-bugs` | `skills/engineering/diagnosing-bugs/SKILL.md` | `f3fc563` | 强制造红须 diff 未改动副本自证 |
 | 4 | `grilling` | `skills/productivity/grilling/SKILL.md` | `95249b0` | 问题措辞须让「是」等于接受推荐答案 |
+
+### 上游提交 SHA 明细（完整 40 位）
+
+| 短 SHA | 完整 SHA | 提交标题 | 关联 |
+|---|---|---|---|
+| `e48341a` | `e48341a3d412cfeba4b9a79d3fd0331fc376ba82` | implement: call the Skill tool for tdd and code-review | 回填 #1 |
+| `04320ee` | `04320ee730092d45aa4ee6ce78fa94d70bd1ae00` | implement: tighten Skill tool wording and changeset | 回填 #1 |
+| `6d6a5b9` | `6d6a5b9072f47ee7ba1d972d8ce0ee98b7ed4394` | implement: fetch a passed ticket reference and state its title (#1196) | 回填 #1 |
+| `3da8c01` | `3da8c01116264675eeefbd6e9d59c734de9095cc` | code-review: search for standards files, foreground sub-agents, tracker doc (#1208) | 回填 #2 |
+| `f3fc563` | `f3fc5632f401156837ee3872f14fe33ccf1024ea` | diagnosing-bugs: prove a forced mutation landed before trusting the red (#1209) | 回填 #3 |
+| `95249b0` | `95249b0b49782349740fd9b8c6ce32b4e59e497a` | grilling: word questions so yes accepts the recommendation (#706) (#1193) | 回填 #4 |
+| `3f59913` | `3f599139104dfceabc7754eeb91319802f85e042` | tdd: note what each proposed seam catches and misses (#1192) | 未回填 |
+| `9e2abf8` | `9e2abf8611a345efbf779aacb171cff015bcdeb6` | to-tickets: tighten sub-issue and Blocked-by wording, drop GitLab and table changes | 未回填 |
+| `cffab50` | `cffab50350e3d96688f63f890f4d7ca0e6007cfe` | to-tickets: attach tickets to their parent issue as sub-issues | 未回填 |
+| `4f4e943` | `4f4e9433bbb7c4957ef33b1ea26686fb7c2a4cf4` | handoff: resolve the temp dir the same way every run and report the path | 未回填 |
+| `0f5e033` | `0f5e033ebc47b142f5ffa56a582ede6d9d9bada3` | handoff: trim #272 fix to the temp-dir resolution order | 未回填 |
 
 ---
 
@@ -68,7 +84,7 @@
 +完成后，调用 Skill 工具执行 `code-review` 审查这次工作。
 ```
 
-**重新应用方法**：从上游 `mattpocock/skills` 取 `skills/engineering/implement/SKILL.md` 在 `b0618bc` 的版本，按上述对应关系把中文版的三处措辞改回。
+**重新应用方法**：从上游 `mattpocock/skills` 取 `skills/engineering/implement/SKILL.md` 在 `b0618bc436ad893b3c5e84e55fba86586d34a404` 的版本，按上述对应关系把中文版的三处措辞改回。
 
 **验证方法**：`grep -n "Skill 工具执行" skills/engineering/implement/SKILL.md` 应命中 2 处；`grep -n "ticket 引用" ...` 应命中 1 处；文件中不应再出现 `/tdd` 或 `/code-review` 斜杠调用。
 
@@ -106,7 +122,7 @@
 - `Repo 中任何记录代码应该如何写的内容，例如 \`CODING_STANDARDS.md\` 或 \`CONTRIBUTING.md\`。` → `搜索 repo 中**每一个**记录「代码应该如何写」的文件。当 \`CODING_STANDARDS.md\` 或 \`CONTRIBUTING.md\` 存在时，它们必须在列表上。`
 - 在 `### 4. 并行启动两个 sub-agents` 之后新增：`把两个 sub-agent 调用**一起发出、在前台执行**，然后聚合它们返回的报告。`
 
-**重新应用方法**：从上游取 `skills/engineering/code-review/SKILL.md` 在 `b0618bc` 的版本，按上述四处对应关系回填中文版。
+**重新应用方法**：从上游取 `skills/engineering/code-review/SKILL.md` 在 `b0618bc436ad893b3c5e84e55fba86586d34a404` 的版本，按上述四处对应关系回填中文版。
 
 **验证方法**：`grep -n "tracker doc\|每一个\|一起发出" skills/engineering/code-review/SKILL.md` 应命中 3 处。
 
@@ -136,7 +152,7 @@
  3. 应用 fix。
 ```
 
-**重新应用方法**：从上游取 `skills/engineering/diagnosing-bugs/SKILL.md` 在 `b0618bc` 的版本，把 Phase 5 的第 2 步改回带护栏的版本。
+**重新应用方法**：从上游取 `skills/engineering/diagnosing-bugs/SKILL.md` 在 `b0618bc436ad893b3c5e84e55fba86586d34a404` 的版本，把 Phase 5 的第 2 步改回带护栏的版本。
 
 **验证方法**：`grep -n "强行造出的红" skills/engineering/diagnosing-bugs/SKILL.md` 应命中 1 处。
 
@@ -146,7 +162,7 @@
 
 **文件**：`skills/productivity/grilling/SKILL.md`
 
-**为什么**：上游新增一句约束，防止推荐答案与「是/否」的语义错位（`grill-with-docs` 依赖本技能）。回填时上游提交为 `95249b0`。
+**为什么**：上游新增一句约束，防止推荐答案与「是/否」的语义错位（`grill-with-docs` 依赖本技能）。回填时上游提交为 `95249b0b49782349740fd9b8c6ce32b4e59e497a`（`95249b0`）。
 
 **上游基线（英文原文）**
 
@@ -170,7 +186,7 @@
  每一轮用户给出的回答都会重塑这棵树：…
 ```
 
-**重新应用方法**：从上游取 `skills/productivity/grilling/SKILL.md` 在 `b0618bc` 的版本，把该句回填到 round 格式说明之后。
+**重新应用方法**：从上游取 `skills/productivity/grilling/SKILL.md` 在 `b0618bc436ad893b3c5e84e55fba86586d34a404` 的版本，把该句回填到 round 格式说明之后。
 
 **验证方法**：`grep -n "就等于接受你推荐的答案" skills/productivity/grilling/SKILL.md` 应命中 1 处。
 
@@ -181,8 +197,8 @@
 以下为中文版落后于上游的其余改动，本仓库**未回填**（评估后认为对精选集合影响小，或属于未纳入的技能）：
 
 - `setup-matt-pocock-skills`：`triage-labels` / `issue-tracker-github` 措辞（本集合不含 `triage`）
-- `tdd`：为每个提议的 seam 补一行「能抓到什么 / 漏掉什么」（`3f59913`）
-- `to-tickets`：sub-issue / 原生 blocking 关系（`9e2abf8`、`cffab50`）
-- `handoff`：临时目录解析顺序（`4f4e943`、`0f5e033`）
+- `tdd`：为每个提议的 seam 补一行「能抓到什么 / 漏掉什么」（`3f599139104dfceabc7754eeb91319802f85e042`）
+- `to-tickets`：sub-issue / 原生 blocking 关系（`9e2abf8611a345efbf779aacb171cff015bcdeb6`、`cffab50350e3d96688f63f890f4d7ca0e6007cfe`）
+- `handoff`：临时目录解析顺序（`4f4e9433bbb7c4957ef33b1ea26686fb7c2a4cf4`、`0f5e033ebc47b142f5ffa56a582ede6d9d9bada3`）
 - `ask-matt` / `wayfinder` / `wizard` / `teach` 等**未纳入本集合**技能的改动
 - 上游新增的 `in-progress/chief-of-staff`（**未纳入，不安装**）
